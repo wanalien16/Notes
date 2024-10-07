@@ -7,4 +7,5 @@ class GetAllNotesUseCase(private val repository: NoteRepository) {
     suspend operator fun invoke(): List<Note>{
         return repository.getAllNotes()
     }
+
 }
