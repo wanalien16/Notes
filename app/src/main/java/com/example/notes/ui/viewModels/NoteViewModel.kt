@@ -19,10 +19,11 @@ class NoteViewModel @Inject constructor(private val addNoteUseCase: AddNoteUseCa
     fun addNote(note: Note){
         viewModelScope.launch {
             addNoteUseCase(note)
+            loadNotes()
         }
     }
 
-    fun loadNotes(){
+    private fun loadNotes(){
         viewModelScope.launch {
             _notes.value = getAllNotesUseCase()
         }
