@@ -6,6 +6,7 @@ import com.example.notes.domain.Note
 import com.example.notes.domain.usecases.AddNoteUseCase
 import com.example.notes.domain.usecases.GetAllNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,14 +18,14 @@ class NoteViewModel @Inject constructor(private val addNoteUseCase: AddNoteUseCa
     val notes : StateFlow<List<Note>> get() = _notes
 
     fun addNote(note: Note){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             addNoteUseCase(note)
             loadNotes()
         }
     }
 
     private fun loadNotes(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _notes.value = getAllNotesUseCase()
         }
     }
