@@ -17,7 +17,7 @@ class NoteViewModel @Inject constructor(private val addNoteUseCase: AddNoteUseCa
         private val _notes = MutableStateFlow<List<Note>>(emptyList())
     val notes : StateFlow<List<Note>> get() = _notes
 
-    fun addNote(note: Note){
+    fun addNote(note: Note, onAddNoteClicked: () -> Unit){
         viewModelScope.launch(Dispatchers.IO) {
             addNoteUseCase(note)
             loadNotes()
