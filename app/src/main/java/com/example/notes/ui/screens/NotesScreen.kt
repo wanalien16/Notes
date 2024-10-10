@@ -23,7 +23,7 @@ import com.example.notes.ui.viewModels.NoteViewModel
 
 @Composable
 fun NotesScreen(viewModel: NoteViewModel = hiltViewModel()){
-    val notes by viewModel.notes.collectAsState()
+//    val notes by viewModel.notes.collectAsState()
     var title by remember {
         mutableStateOf("")
     }
@@ -39,11 +39,11 @@ Column {
     description = ""}) {
         Text(text = "Add Note")
     }
-LazyColumn {
-    items(notes){
-        note -> Text("${note.title}: ${note.description}")
-    }
-}
+//LazyColumn {
+//    items(notes){
+//        note -> Text("${note.title}: ${note.description}")
+//    }
+//}
 
 }
 }
