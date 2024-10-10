@@ -3,13 +3,10 @@ package com.example.notes.ui.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,8 +19,8 @@ import com.example.notes.ui.viewModels.NoteViewModel
 
 
 @Composable
-fun NotesScreen(viewModel: NoteViewModel = hiltViewModel()){
-    val notes by viewModel.notes.collectAsState()
+fun NotesScreen(viewModel: NoteViewModel = hiltViewModel(), onAddNoteClicked: () -> Unit){
+//    val notes by viewModel.notes.collectAsState()
     var title by remember {
         mutableStateOf("")
     }
@@ -34,16 +31,16 @@ Column {
     TextField(value = title, onValueChange = {title = it})
     Spacer(modifier = Modifier.padding(5.dp))
     TextField(value = description, onValueChange = {description = it} )
-    Button(onClick = { viewModel.addNote(Note(title = title, description = description))
+    Button(onClick = { viewModel.addNote(Note(title = title, description = description), onAddNoteClicked)
     title = ""
     description = ""}) {
         Text(text = "Add Note")
     }
-LazyColumn {
-    items(notes){
-        note -> Text("${note.title}: ${note.description}")
-    }
-}
+//LazyColumn {
+//    items(notes){
+//        note -> Text("${note.title}: ${note.description}")
+//    }
+//}
 
 }
 }
