@@ -37,7 +37,7 @@ viewModel.loadNotes()
 
     LazyColumn {
         items(notes){
-            note-> NoteCardView(note, onDeleteClicked = { })
+            note-> NoteCardView(note, onDeleteClicked = {viewModel.deleteNote(note)})
         }
     }
 
