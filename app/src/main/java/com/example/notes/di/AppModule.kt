@@ -16,6 +16,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Provides
     @Singleton
     fun provideDataBase(@ApplicationContext context: Context): NoteDatabase{
@@ -33,4 +34,5 @@ object AppModule {
     fun provideNoteRepository(dao: NoteDao): NoteRepository{
         return NoteRepositoryImpl(dao)
     }
+
 }
