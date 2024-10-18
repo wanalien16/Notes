@@ -35,6 +35,8 @@ class NoteViewModel @Inject constructor(private val addNoteUseCase: AddNoteUseCa
     fun deleteNote(note: Note){
         viewModelScope.launch(Dispatchers.IO) {
             deleteNoteUseCase(note)
+            loadNotes()
+
         }
     }
 
