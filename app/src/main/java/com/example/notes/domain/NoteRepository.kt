@@ -5,4 +5,10 @@ interface NoteRepository {
     suspend fun getAllNotes(): List<Note>
 
     suspend fun deleteNote(note: Note)
+
+    suspend fun addVoice(voiceNote: VoiceNote)
+
+    suspend fun deleteVoice(voiceNote: VoiceNote)
+
+    suspend fun getAllVoiceNotes(): List<VoiceNote>
 }
