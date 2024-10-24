@@ -1,4 +1,4 @@
-package com.example.notes.domain.usecases
+package com.example.notes.domain
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
