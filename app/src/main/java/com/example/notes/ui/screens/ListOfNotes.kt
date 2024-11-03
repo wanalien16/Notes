@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,7 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.notes.domain.Note
+import com.example.notes.domain.VoiceNote
 import com.example.notes.ui.viewModels.NoteViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun ListOfNotes(viewModel: NoteViewModel = hiltViewModel()){
@@ -36,10 +41,19 @@ viewModel.loadNotes()
 
     val notes by viewModel.notes.collectAsState()
 
+    val audioNotes by viewModel.voiceNotes.collectAsState()
+
+
 
     LazyColumn {
         items(notes){
             note-> NoteCardView(note, onDeleteClicked = {viewModel.deleteNote(note)})
+        }
+    }
+
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        items(audioNotes) { audioNote ->
+            AudioNoteItem(audioNote = audioNote)
         }
     }
 
@@ -66,4 +80,21 @@ fun NoteCardView(note: Note, onDeleteClicked: () -> Unit){
     }
 
 
+}
+
+@Composable
+fun AudioNoteItem(audioNote: VoiceNote) {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    val formattedDate = dateFormat.format(Date(audioNote.timestamp))
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("File Path: ${audioNote.filePath}", style = MaterialTheme.typography.bodyMedium)
+            Text("Timestamp: $formattedDate", style = MaterialTheme.typography.bodySmall)
+        }
+    }
 }
