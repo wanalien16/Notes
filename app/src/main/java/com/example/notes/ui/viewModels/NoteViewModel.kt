@@ -56,6 +56,13 @@ class NoteViewModel @Inject constructor(private val addNoteUseCase: AddNoteUseCa
         }
     }
 
+    fun saveAudioNote(filePath: String, timestamp: Long) {
+        viewModelScope.launch {
+            val audioNote = VoiceNote(filePath = filePath, timestamp = timestamp)
+            addVoiceUseCase(audioNote)
+        }
+    }
+
     fun deleteVoiceNote(voiceNote: VoiceNote){
         viewModelScope.launch(Dispatchers.IO) {
             deleteVoiceUseCase(voiceNote)

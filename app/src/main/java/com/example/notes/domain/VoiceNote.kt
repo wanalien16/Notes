@@ -5,5 +5,5 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "voiceNotes")
 data class VoiceNote(@PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val voice: String,
+    val filePath: String,
     val timestamp: Long = System.currentTimeMillis())
